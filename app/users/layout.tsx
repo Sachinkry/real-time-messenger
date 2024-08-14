@@ -1,4 +1,4 @@
-import Sidebar from "../components/inputs/sidebar/Sidebar";
+import Sidebar from "../components/sidebar/Sidebar";
 
 export default async function UsersLayout({
     children

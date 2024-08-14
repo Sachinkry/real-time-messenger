@@ -4,7 +4,6 @@ import axios from 'axios';
 import React, { useState, useCallback, useEffect } from 'react';
 import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
 import Input from '@/app/components/inputs/Input';
-import { FaGoogle, FaGithub } from 'react-icons/fa';
 import { BsGithub, BsGoogle } from 'react-icons/bs';
 import AuthSocialButton from './AuthSocialButton';
 import toast from 'react-hot-toast';

@@ -1,4 +1,3 @@
-import { Icon } from "lucide-react";
 import { IconType } from "react-icons";
 
 interface AuthSocialButtonProps {

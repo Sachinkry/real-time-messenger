@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Messenger Clone",
-  description: "Real Time Messaging",
+  description: "Real Time Messaging App",
 };
 
 export default function RootLayout({
