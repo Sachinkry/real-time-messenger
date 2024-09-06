@@ -45,7 +45,7 @@ const Form = () => {
   }
 
   return (
-    <div className="py-4 px-4 bg-white border-t flex items-center gap-2 lg:gap4 w-full">
+    <div className="py-4 px-4 bg-white dark:bg-neutral-900 border-t flex items-center gap-2 lg:gap4 w-full">
       <CldUploadButton
         options={{ maxFiles: 1 }}
         onSuccess={handleUpload}
