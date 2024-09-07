@@ -17,8 +17,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import Input  from "@/app/components/inputs/Input";
+import { Label } from "@/components/ui/label";
 import Select from "@/app/components/inputs/Select";
 
 
@@ -35,6 +35,7 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   const {
     register,
@@ -51,10 +52,13 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
     }
   });
 
-  const members = watch('members');
+  const members = watch('members') || [];
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
+    // setIsLoading(true);
+    
+
+    console.log("GROUP DATA--------------", data)
     axios.post(`/api/conversations`, {
       ...data,
       isGroup: true
@@ -81,36 +85,38 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" value={""} className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Members
-            </Label>
-            <Select 
+          <Input 
+            register={register} 
+            label="Name" disabled={isLoading} 
+            id="name"
+            required
+            errors={errors} 
+          />
+          <Select 
               disabled={isLoading}
               label="Members"
               options={users.map((user) => ({
                 value: user.id,
-                label: user.name
+                label: user.name || "Unknown User"
               }))}
-              onChange={(value) => setValue('members', value, {
-                shouldValidate: true
-              })}
-              value={members}
+              onChange={(values) => {
+                const selectedMembers = values.map((id) => {
+                  const user = users.find(user => user.id === id.toString());
+                  return user ? { value: user.id, label: user.name } : null;
+                }).filter(Boolean); // Filter out any null values
+                // console.log("lollllllllllllllll", selectedMembers)
+                setSelectedValues(Array.from(new Set(values.map(value => value.toString()))));
+                setValue('members', selectedMembers, {
+                  shouldValidate: true
+                });
+              }}
+              value={selectedValues}
             />
-              
-          </div>
-          
         </div>
-        </form>
         <DialogFooter>
-          <Button type="submit" disabled={isLoading}>Save changes</Button>
+          <Button type="submit" disabled={isLoading}>Create Group</Button>
         </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   )

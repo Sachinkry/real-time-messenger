@@ -31,7 +31,7 @@ const Input: React.FC<InputProps> = ({
       >
         {label}
       </label>
-      <div className="mt-2">
+      <div className="mt-2 ">
         <input
           id={id}
           type={type}
@@ -42,7 +42,7 @@ const Input: React.FC<InputProps> = ({
             form-input
             block 
             w-full 
-            rounded-md 
+            rounded-sm 
             border-0 
             py-1.5 
             pl-2
@@ -56,6 +56,7 @@ const Input: React.FC<InputProps> = ({
             dark:focus:ring-1
             focus:ring-inset 
             focus:ring-sky-600 
+            focus:border-sky-600
             sm:text-sm 
             sm:leading-6
             ${errors[id] && 'ring-rose-500'}

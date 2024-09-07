@@ -1,4 +1,5 @@
 "use client";
+import LoadingModal from "@/app/components/LoadingModal";
 import AvatarComponent from "@/components/AvatarComponent";
 import { User } from "@prisma/client";
 import axios from "axios";
@@ -26,18 +27,23 @@ const UserBox: React.FC<UserBoxProps> = ({data}) => {
   }, [data, router]);
 
   return (
-    <div onClick={handleClick} className="w-full relative flex items-center space-x-3 bg-white dark:bg-neutral-900 p-3 hover:bg-neutral-100 dark:hover:bg-neutral-950 rounded-lg transition cursor-pointer">
-      <AvatarComponent user={data} />
-      <div className="min-w-0 flex-1">
-        <div className="focus:outline-none">
-          <div className="flex justify-between items-center mb-1">
-            <p className="text-sm font-medium text-gray-900 dark:text-neutral-300">
-              {data?.name?.split(' ')[0]}
-            </p>
+    <>
+    {isLoading && (
+      <LoadingModal />
+    )}
+      <div onClick={handleClick} className="w-full relative flex items-center space-x-3 bg-white dark:bg-neutral-900 p-3 hover:bg-neutral-100 dark:hover:bg-neutral-950 rounded-lg transition cursor-pointer">
+        <AvatarComponent user={data} />
+        <div className="min-w-0 flex-1">
+          <div className="focus:outline-none">
+            <div className="flex justify-between items-center mb-1">
+              <p className="text-sm font-medium text-gray-900 dark:text-neutral-300">
+                {data?.name?.split(' ')[0]}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -7,6 +7,7 @@ import { Fragment, useMemo, useState } from "react";
 import { IoClose, IoTrash } from "react-icons/io5";
 import AvatarComponent from "@/components/AvatarComponent";
 import ConfirmModal from "./ConfirmModal";
+import AvatarGroup from "@/app/components/AvatarGroup";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -67,7 +68,11 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
               </div>
 
               <div className="mt-6 flex flex-col items-center">
-                <AvatarComponent user={otherUser} />
+                {data.isGroup ? (
+                  <AvatarGroup users={data.users} />
+                ) : (
+                  <AvatarComponent user={otherUser} />
+                )}
                 <div className="mt-2 text-lg dark:text-neutral-300 font-medium">{title}</div>
                 <div className="text-sm text-gray-500 dark:text-green-600">{statusText}</div>
 
@@ -75,6 +80,16 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
 
                 <div className="w-full mt-8">
                   <dl className="space-y-8 px-4 sm:space-y-6 sm:px-6">
+                    {data.isGroup && (
+                      <div>
+                        <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 dark:text-neutral-400">
+                          Emails
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900 dark:text-neutral-500 sm:col-span-2">
+                          {data.users.map(user => user.email).join(', ')}
+                        </dd>
+                      </div>
+                    )}
                     {!data.isGroup && (
                       <>
                         <div>
