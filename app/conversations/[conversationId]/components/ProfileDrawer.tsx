@@ -8,6 +8,7 @@ import { IoClose, IoTrash } from "react-icons/io5";
 import AvatarComponent from "@/components/AvatarComponent";
 import ConfirmModal from "./ConfirmModal";
 import AvatarGroup from "@/app/components/AvatarGroup";
+import useActiveList from "@/app/hooks/useActiveList";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -20,6 +21,9 @@ interface ProfileDrawerProps {
 const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) => {
   const otherUser = useOtherUser(data);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
+  const { members } = useActiveList();
+  let isActive = members.indexOf(otherUser?.email!) !== -1;
 
   const joinedDate = useMemo(() => {
     return format(new Date(otherUser.createdAt), "PP");
@@ -34,8 +38,8 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
       return `${data.users.length} members`;
     }
 
-    return "Active";
-  }, [data]);
+    return isActive ? "Active": "Offline";
+  }, [data, isActive]);
 
   return (
     <>
@@ -74,7 +78,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose, data }) 
                   <AvatarComponent user={otherUser} />
                 )}
                 <div className="mt-2 text-lg dark:text-neutral-300 font-medium">{title}</div>
-                <div className="text-sm text-gray-500 dark:text-green-600">{statusText}</div>
+                <div className={`text-xs font-normal ${isActive ? "text-green-500 dark:text-green-600": "text-gray-400 dark:text-neutral-400"} `}>{statusText}</div>
 
                 
 

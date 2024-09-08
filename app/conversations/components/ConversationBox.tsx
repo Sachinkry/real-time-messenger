@@ -90,8 +90,8 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
               )}
             </div>
             <p className={clsx(
-              `text-xs text-gray-700 dark:text-neutral-400 truncate`,
-              hasSeen ? "text-gray-500" : "text-black font-medium"
+              `text-xs  truncate`,
+              hasSeen ? "text-gray-600/70 dark:text-neutral-200/30" : !lastMessage?.body ? "text-gray-900 darK:text-neutral-400 font-medium" : "text-green-400 dark:text-green-600"
             )}>
               {lastMessageText}
             </p>
