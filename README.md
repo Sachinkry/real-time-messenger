@@ -18,6 +18,7 @@ This project is a real-time messaging application built using Next.js, TypeScrip
 - **NextAuth**: Authentication for Next.js applications.
 - **Prisma**: A modern database toolkit for TypeScript and Node.js.
 - **Bcrypt**: A library to hash passwords securely.
+- **Pusher**: real-time features
 
 ## Getting Started
 
